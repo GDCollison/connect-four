@@ -39,7 +39,8 @@ const getClassListArray = (cell) => {
 const getCellLocation = (cell) => {
     const classList = getClassListArray(cell);
     const rowClass = classList.find(className => className.includes('row'));
-    const columnClass = classList.find(className => className.includes('column'));
+    const columnClass = classList.find(className => className.includes('col'));
+    console.log (rowClass, columnClass);
 
     const rowIndex = rowClass[4];
     const columnIndex = columnClass[4];
@@ -53,9 +54,9 @@ const getCellLocation = (cell) => {
 //Event Handlers
 const handleCellMouseOver = (e) => {
     const cell = e.target;
-    const [rowIndex, colIndex] = getCellLocation(cell)
+    const [rowNumber, columnNumber] = getCellLocation(cell)
 
-    const topCell = topCells[columnIndex];
+    const topCell = topCells[columnNumber];
     if (yellowIsNext) {
         topCell.classList.add('yellow');
          } else {
