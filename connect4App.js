@@ -40,7 +40,6 @@ const getCellLocation = (cell) => {
     const classList = getClassListArray(cell);
     const rowClass = classList.find(className => className.includes('row'));
     const columnClass = classList.find(className => className.includes('col'));
-    console.log (rowClass, columnClass);
 
     const rowIndex = rowClass[4];
     const columnIndex = columnClass[4];
@@ -51,22 +50,69 @@ const getCellLocation = (cell) => {
     return [rowNumber, columnNumber];
 };
 
+const getFirstOpenCellForColumn = (columnIndex) => {
+    const column = columns[columnIndex];
+    const columnWithoutTop = column.slice(0, 6);
+    
+    for (const cell of columnWithoutTop) {
+        const classList = getClassListArray(cell);
+        if (!classList.includes('yellow') && !classList.includes('red')) {
+            return cell;
+        }
+    }
+    return null;
+};
+
+
+
+
+
+
 //Event Handlers
 const handleCellMouseOver = (e) => {
     const cell = e.target;
-    const [rowNumber, columnNumber] = getCellLocation(cell)
+    const [rowNumber, columnNumber] = getCellLocation(cell);
 
     const topCell = topCells[columnNumber];
     if (yellowIsNext) {
         topCell.classList.add('yellow');
-         } else {
-                topCell.classList.add('red');
-            }
+        } else {
+        topCell.classList.add('red');
+        }
     };
+
+const handleCellMouseOut = (e) => {
+    const cell = e.target;
+    const [rowNumber, columnNumber] = getCellLocation(cell);
+
+    const topCell = topCells[columnNumber];
+    topCell.classList.remove('yellow');
+    topCell.classList.remove('red');
+};
+
+const handleCellClick = (e) => {
+    const cell = e.target;
+    const [rowNumber, columnNumber] = getCellLocation(cell);
+    const openCell = getFirstOpenCellForColumn(columnNumber);
+    
+    if (!openCell) return;
+
+    if (yellowIsNext) {
+        openCell.classList.add('yellow');
+        } else {
+        openCell.classList.add('red');
+    }
+    yellowIsNext = !yellowIsNext;
+};
+
+
+
 
 //Event Listeners
 for (const row of rows) {
     for (const cell of row) {
         cell.addEventListener('mouseover', handleCellMouseOver);
+        cell.addEventListener('mouseout', handleCellMouseOut);
+        cell.addEventListener('click', handleCellClick);
     }
 };
