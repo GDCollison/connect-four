@@ -76,53 +76,53 @@ const getColorOfCell = (cell) => {
     return null;
 }
 
-const checkWinningCells = (cells) => {
-    if (cells.length >= 4) {
-        gameIsLive = false;
-        for (const cell of cells) {
-            cell.classLis.add('win');
-        }
-    }
-    //I left off here - 1:05:17
+// const checkWinningCells = (cells) => {
+//     if (cells.length >= 4) {
+//         gameIsLive = false;
+//         for (const cell of cells) {
+//             cell.classLis.add('win');
+//         }
+//     }
+//     statusSpan.textContent = '${yellowIsNext ? 'Yellow' : 'Red'} has won!'
 
-}
+// };
 
-const checkStatusOfGame = (cell) => {
-    const color = getColorOfCell(cell);
-    if (!color) return;
-    const [rowNumber, columnNumber] = getCellLocation(cell);
+// const checkStatusOfGame = (cell) => {
+//     const color = getColorOfCell(cell);
+//     if (!color) return;
+//     const [rowNumber, columnNumber] = getCellLocation(cell);
 
-    //Horizontal Check
-    let winningCells = [cell];
-    let rowToCheck = rowNumber;
-    let columnToCheck = columnNumber -1
-    while (columnToCheck >= 0) {
-        const cellToCheck = rows[rowToCheck][columnNumber];
-        if (getColorOfCell(cellToCheck) === color) {
-            winningCells.push(cellToCheck);
-            columnToCheck--;
-        } else {
-            break;
-        }
-    }
-    columnToCheck = columnNumber +1;
-    while (columnToCheck <= 6) {
-    const cellToCheck = rows[rowToCheck][columnNumber];
-    if (getColorOfCell(cellToCheck) === color) {
-        winningCells.push(cellToCheck);
-        columnToCheck++;
-        } else {
-        break;
-        }
-    };
+//     //Horizontal Check
+//     let winningCells = [cell];
+//     let rowToCheck = rowNumber;
+//     let columnToCheck = columnNumber -1
+//     while (columnToCheck >= 0) {
+//         const cellToCheck = rows[rowToCheck][columnNumber];
+//         if (getColorOfCell(cellToCheck) === color) {
+//             winningCells.push(cellToCheck);
+//             columnToCheck--;
+//         } else {
+//             break;
+//         }
+//     }
+//     columnToCheck = columnNumber +1;
+//     while (columnToCheck <= 6) {
+//     const cellToCheck = rows[rowToCheck][columnNumber];
+//     if (getColorOfCell(cellToCheck) === color) {
+//         winningCells.push(cellToCheck);
+//         columnToCheck++;
+//         } else {
+//         break;
+//         }
+//     };
 
 
  
-    if (winningCells.length >= 4) {
-        gameIsLive = False;
-        winningCells.add
-    }
-};
+//     if (winningCells.length >= 4) {
+//         gameIsLive = False;
+//         winningCells.add
+//     }
+// };
 
 
 //Event Handlers
@@ -156,18 +156,18 @@ const handleCellClick = (e) => {
         openCell.classList.add('yellow');
         } else {
         openCell.classList.add('red');
-    }
-    
+    };
+    yellowIsNext = !yellowIsNext;
     checkStatusOfGame(openCell);
 
-    yellowIsNext = !yellowIsNext;
     clearColorFromTop(columnNumber);
+    
     const topCell = topCells[columnNumber];
     if (yellowIsNext) {
         topCell.classList.add('yellow');
         } else {
         topCell.classList.add('red');
-        }
+        };
 };
 
 
